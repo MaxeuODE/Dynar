@@ -50,7 +50,7 @@ public class ParticleCommand {
         if (random) {
             rand = context.getSource().getWorld().random;
         }
-        new ParticleGroup(Builder.sphere(new SphereInfo(amount, radius, velocity, dynamic), center, rand), effect).generate(context.getSource().getServer());
+        new ParticleGroup(Builder.sphere(new SphereInfo(amount, radius, velocity, dynamic), center, rand), effect).generate();//context.getSource().getServer()
         return 1;
     }
 

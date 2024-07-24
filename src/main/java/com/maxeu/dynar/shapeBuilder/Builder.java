@@ -53,16 +53,20 @@ public class Builder {
         return noisyDirection.normalize();
     }
 
-    public static ArrayList<double[]> beams(BeamsInfo info, Vec3d center, Random rand){
+    public static ArrayList<double[]> beams(BeamsInfo info, Vec3d center, Random rand) {
+
         ArrayList<double[]> beams = new ArrayList<>();
-        if(info.direction == null){info = info.angleToVector();}
+        if (info.direction == null) {
+            info = info.angleToVector();
+        }
         for (int i = 0; i < info.amount; i++) {
+            final float t = rand.nextFloat() * 3 + 0.2F;
             Vec3d velocity = addNoiseToDirection(info.direction, info.noiseRange, rand);
             beams.add(new double[]{
-                    center.x,center.y,center.z,
-                    velocity.x*info.dynamic,
-                    velocity.y*info.dynamic,
-                    velocity.z*info.dynamic,});
+                    center.x, center.y, center.z,
+                    velocity.x * info.dynamic * t,
+                    velocity.y * info.dynamic * t,
+                    velocity.z * info.dynamic * t,});
         }
         return beams;
     }

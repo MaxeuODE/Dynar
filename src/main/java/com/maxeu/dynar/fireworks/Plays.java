@@ -16,7 +16,7 @@ public class Plays {
     private static int i = 1;
 
     public static int firework(MinecraftServer server, Random rand) {
-        ParticleReleaser releaser = new ParticleReleaser();
+        ParticleReleaser releaser =new ParticleReleaser();
         Builder.sphere(new SphereInfo(100, 30, new Vec3d(0, 0, 0), 0), new Vec3d(0, 80, 0), null)
                 .forEach(center -> {
                     releaser.addParticleGroup(new ParticleGroup(Builder.sphere(new SphereInfo(1000, 0.1F, new Vec3d(0, 0, 0), 3), new Vec3d(center[0], center[1], center[2]), rand), SIMPLE_PARTICLE)).setProcess(new int[]{i});
@@ -29,7 +29,7 @@ public class Plays {
 
     public static int firework2(MinecraftServer server, Random rand) {
         ParticleReleaser releaser = new ParticleReleaser();
-        Builder.sphere(new SphereInfo(100, 30, new Vec3d(0, 0, 0), 0), new Vec3d(0, 80, 0), null)
+        Builder.sphere(new SphereInfo(100, 10, new Vec3d(0, 0, 0), 0), new Vec3d(0, 0, 0), null)
                 .forEach(center -> {
                     releaser.addParticleGroup(new ParticleGroup(Builder.beams(new BeamsInfo(1000,new Vec3d(center[0], center[1], center[2]),0.1,1), new Vec3d(center[0], center[1], center[2]), rand), SIMPLE_PARTICLE)).setProcess(new int[]{i});
                     i+=5;

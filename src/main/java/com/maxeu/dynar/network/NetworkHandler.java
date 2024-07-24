@@ -18,22 +18,28 @@ import java.util.function.Consumer;
 import static com.maxeu.dynar.utils.Util.MOD_ID;
 
 public class NetworkHandler {
+    public static MinecraftServer SERVER = MinecraftClient.getInstance().getServer();
     public static final Identifier GROUP_INFO = new Identifier(MOD_ID, "group_info");
-
     private static final List<byte[]> Temp = new ArrayList<>();
 
     public static void init() {
         ClientPlayNetworking.registerGlobalReceiver(GROUP_INFO, NetworkHandler::executeGroup);
     }
 
-    public static void sendParticleGroup(MinecraftServer server, ParticleGroup group) {
-        sendInstance(server, group, GROUP_INFO);
+    public static void reload() {
+        SERVER = MinecraftClient.getInstance().getServer();
     }
 
-    private static void sendInstance(MinecraftServer server, Object object, Identifier id) {
+    public static void sendParticleGroup(ParticleGroup group) {
+        reload();
+        sendInstance(group, GROUP_INFO);
+    }
+
+    private static void sendInstance(Object object, Identifier id) {
+        reload();
         final byte[] data = SerializationUtils.serialize(object);
         final List<PacketByteBuf> chunks = ChunkUtils.split(data);
-        server.getPlayerManager().getPlayerList()
+        SERVER.getPlayerManager().getPlayerList()
                 .forEach(player -> chunks.forEach(chunk -> ServerPlayNetworking.send(player, id, chunk)));
     }
 

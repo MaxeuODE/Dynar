@@ -1,6 +1,7 @@
 package com.maxeu.dynar.particleUtils;
 
 import com.maxeu.dynar.network.NetworkHandler;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.registry.Registries;
 import net.minecraft.server.MinecraftServer;
@@ -8,6 +9,8 @@ import net.minecraft.server.MinecraftServer;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
+
+import static net.minecraft.util.profiling.jfr.InstanceType.SERVER;
 
 public class ParticleGroup implements Serializable {
     private final ArrayList<double[]> poses;
@@ -38,8 +41,8 @@ public class ParticleGroup implements Serializable {
         return poses;
     }
 
-    public ParticleGroup generate(MinecraftServer server) {
-        NetworkHandler.sendParticleGroup(server, this);
+    public ParticleGroup generate() {
+        NetworkHandler.sendParticleGroup(this);
         return this;
     }
 }

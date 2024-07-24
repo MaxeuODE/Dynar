@@ -28,8 +28,9 @@ public class ReleaserActuator {
     }
 
     private static void step(Long time, ParticleReleaser releaser, MinecraftServer server) {
+
         try {
-            NetworkHandler.sendParticleGroup(server, releaser.groups.get((int) (timer - time)));
+            NetworkHandler.sendParticleGroup(releaser.groups.get((int) (timer - time)));
             if (timer-time > releaser.getMaxStep()){releaserMap.remove(releaser);}
         } catch (Exception ignored) {
         }
